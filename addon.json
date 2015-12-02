@@ -9,6 +9,9 @@
 		"*.bat",
 		"*.sh",
 		"*.gitignore",
-		"*.git*"
+		"*.git*",
+		"LICENSE",
+		"*.md",
+		"*.txt"
 	]
 }
