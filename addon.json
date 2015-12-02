@@ -5,6 +5,10 @@
 	"ignore"	:
 	[
 		"*.tmp",
-		"*.log"
+		"*.log",
+		"*.bat",
+		"*.sh",
+		"*.gitignore",
+		"*.git*"
 	]
 }
