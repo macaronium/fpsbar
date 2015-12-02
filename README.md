@@ -3,7 +3,6 @@ FPS bar
 Simple addon that will show your current FPS and ping.
 
 There's some convars to customize fps bar:
-
 - `fpsbar_show` \- turns fps bar on or off
 - `fpsbar_show_ping` \- sets whether fps bar should display ping
 - `fpsbar_indent_x` \- indent by x axis
