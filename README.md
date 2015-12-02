@@ -10,3 +10,5 @@ There's some convars to customize fps bar:
 - `fpsbar_indent_y` \- indent by y axis
 - `fpsbar_font_size` \- fps bar font size. Works only after rejoining single/multi player session
 - `fpsbar_refresh_rate` \- info refresh rate in milliseconds
+
+[Steam Workshop page](http://steamcommunity.com/sharedfiles/filedetails/?id=566870827)
