@@ -9,9 +9,9 @@ local fpsbar_font_size_cv = CreateConVar("fpsbar_font_size",
                                          {FCVAR_ARCHIVE},
                                          "Works only after restart.");
 local fpsbar_refresh_rate_cv = CreateConVar("fpsbar_refresh_rate",
-                                            500,
+                                            0.5,
                                             {FCVAR_ARCHIVE},
-                                            "fps bar refresh rate (milliseconds)");
+                                            "fps bar refresh rate (in seconds)");
 
 surface.CreateFont("fpsbar_font", {
 	font = "Tahoma",
@@ -60,8 +60,10 @@ local function draw_hook()
 		return;
 	end
 
+	local refreshrate = fpsbar_refresh_rate_cv:GetFloat();
+	
     local deltaTime = SysTime() - time_prev;
-    if(deltaTime > (0.001 * fpsbar_refresh_rate_cv:GetInt())) then
+    if(deltaTime > refreshrate) then
         updateFrameInfo(player);
         time_prev = SysTime();
     end
@@ -77,3 +79,53 @@ local function draw_hook()
 
 end
 hook.Add("HUDPaint", "fpsbar_draw_hook", draw_hook);
+
+function drawFPSBarOptions(Panel) 
+	Panel:CheckBox('enable FPS bar', 'fpsbar_show', '0', '1');
+	Panel:CheckBox('Show ping', 'fpsbar_show_ping', '0', '1');
+	local xslider = Panel:NumSlider('Indent X', 'fpsbar_indent_x', '0', ScrW());
+	xslider:SetDecimals(0);
+	xslider:SetValue(fpsbar_indent_x_cv:GetInt());
+
+	local yslider = Panel:NumSlider('Indent Y', 'fpsbar_indent_y', '0', ScrH());
+	yslider:SetDecimals(0);
+	yslider:SetValue(fpsbar_indent_y_cv:GetInt());
+	
+	local fontsize = Panel:ComboBox('Font size', 'fpsbar_font_size');
+	
+	addFontChoices(fontsize);
+	
+	local refreshrate = Panel:NumSlider('Refresh rate (sec)', 'fpsbar_refresh_rate', '0.1', '60');
+	refreshrate:SetDecimals(1);
+	refreshrate:SetValue(fpsbar_refresh_rate_cv:GetInt());
+end
+
+function initFPSBarMenu()
+	spawnmenu.AddToolMenuOption('Options',
+								'FPS bar',
+								'FPS bar options',
+								'FPS bar options',
+								'',
+								'',
+								drawFPSBarOptions);
+end
+
+hook.Add("PopulateToolMenu", "fpsbar_options_fn", initFPSBarMenu);
+
+function addFontChoices(combobox)
+	combobox:AddChoice('10');
+	combobox:AddChoice('11');
+	combobox:AddChoice('12');
+	combobox:AddChoice('14');
+	combobox:AddChoice('16');
+	combobox:AddChoice('18');
+	combobox:AddChoice('20');
+	combobox:AddChoice('22');
+	combobox:AddChoice('24');
+	combobox:AddChoice('26');
+	combobox:AddChoice('28');
+	combobox:AddChoice('36');
+	combobox:AddChoice('48');
+	combobox:AddChoice('72');
+	
+end
