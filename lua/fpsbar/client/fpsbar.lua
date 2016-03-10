@@ -39,7 +39,7 @@ local result_text = "";
 
 local function updateFrameInfo(player)
     cur_fps = tostring(math.floor(1 / RealFrameTime()));
-    cur_ping = tostring(math.floor(player:Ping()))
+    cur_ping = tostring(math.floor(player:Ping()));
 
     if(fpsbar_show_ping_cv:GetInt() > 0) then
         result_text = cur_fps .. " / " .. cur_ping;
@@ -65,6 +65,7 @@ local function draw_hook()
     local deltaTime = SysTime() - time_prev;
     if(deltaTime > refreshrate) then
         updateFrameInfo(player);
+        
         time_prev = SysTime();
     end
 
